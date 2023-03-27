@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{css/stylee.css}" />
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/3911a15943.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <section>
+
+        <p class="basyInfo ">To start the measurement, press the button</p>
+        <p class="measureInProgress hiddenClass">Measurements in progress</p>
+        <p class="endMesaure hiddenClass">Measurements ready</p>
+
+        <div class="leftSide">
+            <img class="logo" th:src="@{/images/logo.png}" />
+            <div>
+                <button class="buttonToPdf" type="submit"> <i class="fa-solid fa-file-pdf"></i></button>
+            </div>
+            <button class="buttonToExcel"><i class="fa-solid fa-file-excel"></i></button>
+
+        </div>
+    </section>
+    <section>
+        <form method="post" th:action="@{/logout}">
+            <fieldset>
+                <p>
+                    <button class="buttonSignOut" type="submit">Sign out</button>
+                </p>
+            </fieldset>
+        </form>
+
+        <p class="login">Signed in as</p>
+        <p class="loginName" th:text="${signedName}"></p>
+        <form method="post" th:action="@{/add}" th:object="${newMeasurement}">
+            <fieldset>
+                <img class="machine" th:src="@{/images/machine1.png}" />
+                <p>
+                    <button type="submit" class="buttonStart">Take a measurement</button>
+                </p>
+            </fieldset>
+        </form>
+
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th class="measurement">Measurement</th>
+                    <th class="measurement">Back to back</th>
+                    <th class="measurement"> Difference in diameters</th>
+                    <th class="measurement">Axial run out </th>
+                    <th class="mediumfont ">Radial run out </th>
+                    <th class="littlefont">Difference in position of wheel in
+                        relation to journal </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                <tr>
+                    <th class="measurement"> Symbol</th>
+                    <td class="dependency">A1</td>
+                    <td class="dependency">L & L1 </td>
+                    <td class="dependency">G </td>
+                    <td class="dependency">H</td>
+                    <td class="dependency">C & C1 </td>
+                </tr>
+            </tbody>
+            <tbody class="tfoot">
+                <tr>
+                    <th class="measurement">Tolerance mm</th>
+                    <td class="dependency">1360 ± 1</td>
+                    <td class="dependency">920 ± 0.6</td>
+                    <td class="dependency">0.8 ± 0.05</td>
+                    <td class="dependency">0.3 ± 0.05</td>
+                    <td class="dependency">219 ± 1</td>
+                </tr>
+            </tbody>
+
+
+
+            <tbody class="tfoot" th:each="mea,meatStat : ${measurements.findLastValue()}">
+                <tr>
+                    <th class="measurement">Measured</th>
+                    <td class="dependencyCreate measurement1 hiddenClass" th:text="*{mea.A1}"></td>
+                    <td class="dependencyCreate measurement2 hiddenClass" th:text="*{mea.L_L1}"></td>
+                    <td class="dependencyCreate measurement3 hiddenClass" th:text="*{mea.G}"></td>
+                    <td class="dependencyCreate measurement4 hiddenClass" th:text="*{mea.H}"></td>
+                    <td class="dependencyCreate measurement5 hiddenClass" th:text="*{mea.C_C1}"></td>
+                </tr>
+            </tbody>
+
+
+
+            <tbody class="tfoot" th:each="mea,meatStat : ${measurements.findLastValue()}">
+                <tr>
+                    <th class="measurement">Compliance</th>
+                    <td>
+                        <i class="measurement6 hiddenClass" th:classappend="*{mea.compatibilityA1} ? ' fa-solid fa-check': 'fa-solid fa-xmark' "></i>
+                    </td>
+
+                    <td>
+                        <i class="measurement7 hiddenClass" th:classappend="*{mea.compatibilityL_L1}? 'fa-solid fa-check': 'fa-solid fa-xmark'"></i>
+                    </td>
+
+                    <td>
+                        <i class="measurement8 hiddenClass" th:classappend="*{mea.compatibilityG}? 'fa-solid fa-check': 'fa-solid fa-xmark'"></i>
+                    </td>
+                    <td>
+                        <i class="measurement9 hiddenClass" th:classappend="*{mea.compatibilityH}? 'fa-solid fa-check': 'fa-solid fa-xmark'"></i>
+                    </td>
+
+                    <td>
+                        <i class="measurement10 hiddenClass" th:classappend="*{mea.compatibilityC_C1}? 'fa-solid fa-check': 'fa-solid fa-xmark'"></i>
+                    </td>
+
+
+
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+
+
+    <script type="text/javascript" th:src="@{/src/script.js}"></script>
+</body>
+
+</html>

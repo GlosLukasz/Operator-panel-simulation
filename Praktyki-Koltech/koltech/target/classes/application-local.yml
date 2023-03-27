@@ -1,0 +1,14 @@
+spring:
+  h2.console:
+    enabled: true
+    path: '/console'
+  datasource:
+    url: 'jdbc:h2:file:./measurement-db'
+  jpa:
+    hibernate:
+      ddl-auto: create
+keycloak:
+  auth-server-url: 'http://localhost:8180'
+  realm: 'MeasurementsApp'
+  resource: 'measurements-app-client'
+  public-client: true
